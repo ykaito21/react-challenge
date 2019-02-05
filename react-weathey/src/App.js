@@ -56,9 +56,21 @@ class App extends Component {
     // } = this.state;
     return (
       <div>
-        <Title />
-        <Form getWeather={this.getWeather} />
-        <Weather {...this.state} />
+        <div className="wrapper">
+          <div className="main">
+            <div className="container">
+              <div className="row">
+                <div className="col-xs-5 title-container">
+                  <Title />
+                </div>
+                <div className="col-xs-7 form-container">
+                  <Form getWeather={this.getWeather} />
+                  <Weather {...this.state} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
