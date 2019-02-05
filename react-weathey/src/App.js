@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Title from "./components/Title";
 import Form from "./components/Form";
 import Weather from "./components/Weather";
+import axios from "axios";
 
 import "./App.css";
 
@@ -20,30 +21,49 @@ class App extends Component {
     e.preventDefault();
     const city = e.target.city.value;
     const country = e.target.country.value;
+    const URL = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIKEY}`;
+    axios
+      .get(URL)
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          temperature: data.main.temp,
+          city: data.name,
+          country: data.sys.country,
+          humidity: data.main.humidity,
+          description: data.weather[0].description,
+          error: ""
+        });
+      })
+      .catch(err => {
+        if (err) {
+          console.error("Cannot fetch Weather Data from API, ", err);
+        }
+      });
 
-    const api_call = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIKEY}`
-    );
-    const data = await api_call.json();
-    if (city && country) {
-      this.setState({
-        temperature: data.main.temp,
-        city: data.name,
-        country: data.sys.country,
-        humidity: data.main.humidity,
-        description: data.weather[0].description,
-        error: ""
-      });
-    } else {
-      this.setState({
-        temperature: undefined,
-        city: undefined,
-        country: undefined,
-        humidity: undefined,
-        description: undefined,
-        error: "please enter the value"
-      });
-    }
+    // const api_call = await fetch(
+    //   `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIKEY}`
+    // );
+    // const data = await api_call.json();
+    // if (city && country) {
+    //   this.setState({
+    //     temperature: data.main.temp,
+    //     city: data.name,
+    //     country: data.sys.country,
+    //     humidity: data.main.humidity,
+    //     description: data.weather[0].description,
+    //     error: ""
+    //   });
+    // } else {
+    //   this.setState({
+    //     temperature: undefined,
+    //     city: undefined,
+    //     country: undefined,
+    //     humidity: undefined,
+    //     description: undefined,
+    //     error: "please enter the value"
+    //   });
+    // }
   };
   render() {
     // const {
