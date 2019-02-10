@@ -1,0 +1,13 @@
+.search {
+  /* display: flex;
+  justify-content: center; */
+}
+
+form {
+}
+
+input {
+  font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
+}
