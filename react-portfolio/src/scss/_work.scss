@@ -1,0 +1,16 @@
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.7rem;
+
+  img {
+    width: 100%;
+    border: white 3px solid;
+
+    &:hover {
+      opacity: 0.5;
+      border-color: $secondary;
+      @include easeOut;
+    }
+  }
+}
