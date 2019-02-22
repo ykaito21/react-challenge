@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TodoList from "./components/TodoList";
+import AddTodo from "./components/AddForm";
 import "./App.css";
 
 class App extends Component {
@@ -16,6 +17,13 @@ class App extends Component {
     ]
   };
 
+  addTodo = todo => {
+    todo.id = Math.random();
+    const todos = [...this.state.todos, todo];
+    this.setState({
+      todos: todos
+    });
+  };
   deleteTodo = id => {
     const todos = this.state.todos.filter(todo => {
       return todo.id !== id;
@@ -24,11 +32,13 @@ class App extends Component {
       todos
     });
   };
+
   render() {
     return (
       <React.Fragment>
         <div className="container todo-app">
           <h1 className="center blue-text">Todo's</h1>
+          <AddTodo addTodo={this.addTodo} />
           <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} />
         </div>
       </React.Fragment>
